@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Оплата — PyLearn{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+    <h4 class="fw-bold"><i class="bi bi-credit-card"></i> Оплата</h4>
+</div>
+
+<div class="checkout-card mb-4">
+    {% for order in orders %}
+    <div class="d-flex justify-content-between py-2 border-bottom">
+        <span>{{ order.course.title|truncatechars:30 }}</span>
+        <span class="fw-bold">
+            {% if order.course.price == 0 %}Бесплатно{% else %}{{ order.course.price }} сом{% endif %}
+        </span>
+    </div>
+    {% endfor %}
+    <div class="d-flex justify-content-between pt-3">
+        <span class="fw-bold">Итого</span>
+        <span class="fs-5 fw-bold text-primary">{{ total }} сом</span>
+    </div>
+</div>
+
+<div class="fake-payment mb-4">
+    <div class="fake-card-field mb-3">
+        <label class="text-muted small mb-1">Номер карты</label>
+        <input type="text" class="auth-input" placeholder="0000 0000 0000 0000" disabled>
+    </div>
+    <div class="d-flex gap-3">
+        <div class="flex-grow-1">
+            <label class="text-muted small mb-1">Срок</label>
+            <input type="text" class="auth-input" placeholder="MM/YY" disabled>
+        </div>
+        <div class="flex-grow-1">
+            <label class="text-muted small mb-1">CVV</label>
+            <input type="text" class="auth-input" placeholder="***" disabled>
+        </div>
+    </div>
+    <div class="text-muted small text-center mt-2">
+        🔒 Это демо — реальной оплаты нет
+    </div>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn-green w-100">
+        <i class="bi bi-check-circle"></i> Подтвердить оплату
+    </button>
+</form>
+{% endblock %}

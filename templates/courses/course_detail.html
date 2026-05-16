@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} — PyLearn{% endblock %}
+
+{% block content %}
+<div class="course-detail-header mb-4">
+    <a href="{% url 'catalog' %}" class="btn-back mb-3 d-inline-block">
+        <i class="bi bi-arrow-left"></i> Назад
+    </a>
+    <div class="d-flex align-items-start gap-3 mb-3">
+        <div class="course-icon-lg">
+            {% if course.image_url %}
+                <img src="{{ course.image_url }}" alt="{{ course.title }}" class="course-img-lg">
+            {% else %}
+                <div class="course-img-placeholder-lg">
+                    {% if course.language == 'python' %}🐍{% else %}⚡{% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div>
+            <h4 class="fw-bold mb-1">{{ course.title }}</h4>
+            <span class="badge-level me-2">{{ course.get_level_display }}</span>
+            <span class="badge-lang">{{ course.get_language_display }}</span>
+        </div>
+    </div>
+    <p class="text-muted">{{ course.description }}</p>
+
+    <div class="price-block mb-3">
+        {% if course.price == 0 %}
+            <span class="fs-4 fw-bold text-success">Бесплатно</span>
+        {% else %}
+            <span class="fs-4 fw-bold text-primary">{{ course.price }} сом</span>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if purchased %}
+            <div class="alert-success-custom">
+                <i class="bi bi-check-circle-fill"></i> Курс куплен — учись!
+            </div>
+        {% else %}
+            <a href="{% url 'add_to_cart' course.pk %}" class="btn-green w-100">
+                <i class="bi bi-cart-plus"></i> Добавить в корзину
+            </a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}" class="btn-green w-100">
+            Войдите чтобы купить
+        </a>
+    {% endif %}
+</div>
+
+<div class="lessons-section">
+    <h5 class="fw-bold mb-3">
+        <i class="bi bi-list-ul"></i> Уроки 
+        <span class="text-muted small">({{ lessons.count }})</span>
+    </h5>
+
+    {% for lesson in lessons %}
+    <div class="lesson-card mb-2">
+        <div class="d-flex align-items-center gap-3">
+            <div class="lesson-number">{{ forloop.counter }}</div>
+            <div class="flex-grow-1">
+                {% if purchased %}
+                    <a href="{% url 'lesson_detail' lesson.pk %}" class="text-decoration-none">
+                        <span class="lesson-title">{{ lesson.title }}</span>
+                    </a>
+                {% else %}
+                    <span class="lesson-title text-muted">{{ lesson.title }}</span>
+                {% endif %}
+            </div>
+            {% if purchased %}
+                <i class="bi bi-chevron-right text-muted"></i>
+            {% else %}
+                <i class="bi bi-lock text-muted"></i>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">Уроки ещё не добавлены</p>
+    {% endfor %}
+</div>
+{% endblock %}

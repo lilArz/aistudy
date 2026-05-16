@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Войти — AiStudy{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-logo mb-4">
+        <img src="{% static 'icons/icon-192.png' %}" alt="AiStudy" style="width:80px; height:80px; border-radius:20px;">
+    </div>
+
+    <h4 class="text-center mb-1"><strong>Войти</strong></h4>
+    <p class="text-center text-muted mb-4">AiStudy</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="auth-fields mb-3">
+            <input type="text" name="username" class="auth-input" placeholder="Логин" required>
+            <div class="auth-divider"></div>
+            <input type="password" name="password" class="auth-input" placeholder="Пароль" required>
+        </div>
+
+        {% if form.errors %}
+        <div class="text-danger text-center small mb-3">
+            Неверный логин или пароль
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn-green w-100 mb-3">Войти</button>
+    </form>
+
+    <div class="auth-footer">
+        <a href="{% url 'register' %}" class="text-primary text-decoration-none">Регистрация</a>
+    </div>
+</div>
+{% endblock %}

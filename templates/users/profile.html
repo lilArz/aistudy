@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Профиль — AiStudy{% endblock %}
+
+{% block content %}
+<div class="profile-header mb-4">
+    <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="profile-avatar">
+            {{ user.username|first|upper }}
+        </div>
+        <div>
+            <h5 class="fw-bold mb-0">{{ user.username }}</h5>
+            <div class="d-flex gap-3 mt-1">
+                <span class="profile-stat">⭐ Репутация {{ reputation }}</span>
+                <span class="profile-stat">🧠 Знания {{ knowledge }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-section mb-4">
+    <div class="profile-card">
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>🔔 Уведомления</span>
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" checked>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span>🌙 Тёмная тема</span>
+            <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="darkToggle">
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2">
+            <span>⏰ Время напоминания</span>
+            <span class="text-muted">19:00 - 20:00 ›</span>
+        </div>
+    </div>
+</div>
+
+<div class="profile-section mb-4">
+    <h5 class="fw-bold mb-3">⚡ Активность</h5>
+    <div class="profile-card p-3">
+        <div class="fw-bold mb-1">⚡ {{ streak }} дней без перерыва</div>
+        <div class="text-muted small mb-3">Пройдено уроков: {{ total_completed }}</div>
+        <div class="activity-grid">
+            {% for day in activity_days %}
+            <div class="activity-cell {% if day %}active{% endif %}"></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="profile-section mb-4">
+    <h5 class="fw-bold mb-3">🏆 Достижения</h5>
+    <div class="profile-card p-3">
+        <div class="d-flex gap-3 flex-wrap">
+            {% if total_completed >= 1 %}
+            <div class="achievement active" title="Первый урок">🎯</div>
+            {% else %}
+            <div class="achievement" title="Пройди первый урок">🎯</div>
+            {% endif %}
+            {% if total_completed >= 5 %}
+            <div class="achievement active" title="5 уроков">🔥</div>
+            {% else %}
+            <div class="achievement" title="Пройди 5 уроков">🔥</div>
+            {% endif %}
+            {% if total_completed >= 10 %}
+            <div class="achievement active" title="10 уроков">⭐</div>
+            {% else %}
+            <div class="achievement" title="Пройди 10 уроков">⭐</div>
+            {% endif %}
+            {% if purchased_count >= 1 %}
+            <div class="achievement active" title="Первая покупка">💎</div>
+            {% else %}
+            <div class="achievement" title="Купи курс">💎</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<a href="{% url 'logout' %}" class="btn-logout w-100 text-center d-block">
+    Выйти из аккаунта
+</a>
+
+<script>
+const darkToggle = document.getElementById('darkToggle');
+if (localStorage.getItem('dark') === '1') {
+    document.body.classList.add('dark');
+    darkToggle.checked = true;
+}
+darkToggle.addEventListener('change', function() {
+    if (this.checked) {
+        document.body.classList.add('dark');
+        localStorage.setItem('dark', '1');
+    } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('dark', '0');
+    }
+});
+</script>
+{% endblock %}

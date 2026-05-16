@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация — AiStudy{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-logo mb-4">
+        <img src="{% static 'icons/icon-192.png' %}" alt="AiStudy" style="width:80px; height:80px; border-radius:20px;">
+    </div>
+
+    <h4 class="text-center mb-1"><strong>Регистрация</strong></h4>
+    <p class="text-center text-muted mb-4">AiStudy</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="auth-fields mb-3">
+            <input type="text" name="username" class="auth-input" placeholder="Логин" required>
+            <div class="auth-divider"></div>
+            <input type="password" name="password1" class="auth-input" placeholder="Пароль" required>
+            <div class="auth-divider"></div>
+            <input type="password" name="password2" class="auth-input" placeholder="Повтори пароль" required>
+        </div>
+
+        {% if form.errors %}
+        <div class="text-danger text-center small mb-3">
+            Проверь правильность данных
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn-green w-100 mb-3">Зарегистрироваться</button>
+    </form>
+
+    <div class="auth-footer">
+        <a href="{% url 'login' %}" class="text-primary text-decoration-none">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+{% endblock %}

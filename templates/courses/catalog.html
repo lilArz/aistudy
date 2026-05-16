@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог курсов — PyLearn{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="search-bar">
+            <form method="GET">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        🔍
+                    </span>
+                    <input type="text" name="q" class="form-control border-start-0 ps-0"
+                           placeholder="Поиск курсов" value="{{ request.GET.q }}">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <form method="GET" class="d-flex gap-2 flex-wrap">
+            <button type="submit" name="language" value=""
+                class="btn btn-filter {% if not language %}active{% endif %}">Все</button>
+            <button type="submit" name="language" value="python"
+                class="btn btn-filter {% if language == 'python' %}active{% endif %}">
+                🐍 Python
+            </button>
+            <button type="submit" name="language" value="javascript"
+                class="btn btn-filter {% if language == 'javascript' %}active{% endif %}">
+                ⚡ JavaScript
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <form method="GET" class="d-flex gap-2 flex-wrap">
+            {% if language %}
+            <input type="hidden" name="language" value="{{ language }}">
+            {% endif %}
+            <button type="submit" name="level" value=""
+                class="btn btn-level {% if not level %}active{% endif %}">Все уровни</button>
+            <button type="submit" name="level" value="beginner"
+                class="btn btn-level {% if level == 'beginner' %}active{% endif %}">Начинающий</button>
+            <button type="submit" name="level" value="intermediate"
+                class="btn btn-level {% if level == 'intermediate' %}active{% endif %}">Средний</button>
+            <button type="submit" name="level" value="advanced"
+                class="btn btn-level {% if level == 'advanced' %}active{% endif %}">Продвинутый</button>
+        </form>
+    </div>
+</div>
+
+<div class="mb-3 text-muted small">{{ courses.count }} курсов</div>
+
+{% for course in courses %}
+<div class="course-card mb-3">
+    <a href="{% url 'course_detail' course.pk %}" class="text-decoration-none">
+        <div class="d-flex align-items-start gap-3">
+            <div class="course-icon">
+                <div class="course-img-placeholder" style="background: linear-gradient(135deg, {% if course.language == 'python' %}#4CAF50, #2196F3{% else %}#FF9800, #F44336{% endif %}); display:flex; align-items:center; justify-content:center;">
+                    <span style="font-size:1.5rem; color:white; font-weight:bold;">{{ course.title|first|upper }}</span>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <h6 class="course-title mb-1">{{ course.title }}</h6>
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge-level">{{ course.get_level_display }}</span>
+                    <span class="text-muted small">{{ course.lessons.count }} уроков</span>
+                </div>
+                <p class="course-desc mb-1">{{ course.description|truncatechars:80 }}</p>
+                <div class="course-price">
+                    {% if course.price == 0 %}
+                        <span class="text-success fw-bold">Бесплатно</span>
+                    {% else %}
+                        <span class="fw-bold text-primary">{{ course.price }} сом</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+{% empty %}
+<div class="text-center py-5">
+    <div style="font-size: 3rem;">📚</div>
+    <p class="text-muted">Курсы не найдены</p>
+</div>
+{% endfor %}
+{% endblock %}

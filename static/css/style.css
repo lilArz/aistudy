@@ -1,0 +1,674 @@
+/* ===== ОБЩИЕ ===== */
+* { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+/* ===== НАВБАР ===== */
+.navbar {
+    background: #fff !important;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    color: #4CAF50 !important;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    color: #444 !important;
+    font-size: 0.9rem;
+}
+
+/* ===== КНОПКИ ===== */
+.btn-green {
+    display: block;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-green:hover {
+    background: #43A047;
+    color: white;
+}
+
+.btn-back {
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-remove {
+    color: #ff4444;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+/* ===== ФИЛЬТРЫ КАТАЛОГА ===== */
+.btn-filter {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    color: #444;
+    transition: all 0.2s;
+}
+
+.btn-filter.active {
+    background: #1a1a1a;
+    color: white;
+}
+
+.btn-level {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.btn-level.active {
+    background: #4CAF50;
+    color: white;
+}
+
+/* ===== ПОИСК ===== */
+.search-bar .input-group {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.search-bar .form-control {
+    border: none;
+    box-shadow: none;
+    padding: 12px;
+}
+
+.search-bar .input-group-text {
+    border: none;
+}
+
+/* ===== КАРТОЧКИ КУРСОВ ===== */
+.course-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    transition: transform 0.15s;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+}
+
+.course-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.course-img-placeholder {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.course-title {
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.course-desc {
+    color: #888;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.badge-level {
+    background: #f0f0f0;
+    color: #555;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.badge-lang {
+    background: #e8f5e9;
+    color: #4CAF50;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+/* ===== ДЕТАЛИ КУРСА ===== */
+.course-img-lg {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.course-img-placeholder-lg {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+}
+
+.alert-success-custom {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-weight: 600;
+}
+
+/* ===== УРОКИ ===== */
+.lesson-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.lesson-number {
+    width: 32px;
+    height: 32px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    flex-shrink: 0;
+}
+
+.lesson-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+/* ===== КОНТЕНТ УРОКА ===== */
+.lesson-content {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.quiz-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.quiz-header {
+    color: #4CAF50;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+.quiz-question {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #1a1a1a;
+}
+
+.quiz-input {
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.quiz-input:focus {
+    border-color: #4CAF50;
+}
+
+.quiz-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ===== МОИ КУРСЫ ===== */
+.continue-banner {
+    background: linear-gradient(135deg, #2196F3, #4CAF50);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+}
+
+.continue-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-course-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.course-thumb {
+    flex-shrink: 0;
+}
+
+.course-thumb-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.course-thumb-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.btn-continue {
+    display: block;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ===== АВТОРИЗАЦИЯ ===== */
+.auth-page {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.auth-logo {
+    text-align: center;
+}
+
+.logo-circle {
+    width: 70px;
+    height: 70px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    margin: 0 auto;
+}
+
+.auth-fields {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.auth-input {
+    width: 100%;
+    border: none;
+    padding: 16px;
+    font-size: 1rem;
+    outline: none;
+    background: white;
+}
+
+.auth-divider {
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.auth-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+}
+
+/* ===== КОРЗИНА ===== */
+.cart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.total-block {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+/* ===== ОПЛАТА ===== */
+.checkout-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.fake-payment {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+/* ===== ПУСТЫЕ СОСТОЯНИЯ ===== */
+.empty-state {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+/* ===== МОБИЛЬНАЯ НАВИГАЦИЯ ===== */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #eee;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 0.7rem;
+    gap: 2px;
+    flex: 1;
+}
+
+.mobile-nav-item.active {
+    color: #4CAF50;
+}
+
+.mobile-nav-item i {
+    font-size: 1.3rem;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+    }
+    body {
+        padding-bottom: 70px;
+    }
+    .navbar .navbar-nav {
+        display: none;
+    }
+}
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+.btn-like {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #555;
+}
+.btn-like.liked { background: #ffe0e0; color: #e53935; }
+.comment-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.comment-avatar {
+    width: 36px;
+    height: 36px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.comment-input {
+    width: 100%;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    outline: none;
+    resize: none;
+    transition: border 0.2s;
+}
+.comment-input:focus { border-color: #4CAF50; }
+.bi::before { font-family: inherit !important; }
+.bi-code-slash::before { content: "</>"; font-weight: bold; }
+.bi-search::before { content: "🔍"; }
+.bi-house::before { content: "🏠"; }
+.bi-cart::before { content: "🛒"; }
+.bi-person::before { content: "👤"; }
+.bi-arrow-left::before { content: "←"; }
+.bi-check-circle::before { content: "✅"; }
+.bi-check-circle-fill::before { content: "✅"; }
+.bi-lock::before { content: "🔒"; }
+.bi-chevron-right::before { content: "›"; }
+.bi-list-ul::before { content: "📋"; }
+.bi-patch-question-fill::before { content: "❓"; }
+.bi-heart::before { content: "🤍"; }
+.bi-heart-fill::before { content: "❤️"; }
+.bi-chat::before { content: "💬"; }
+.bi-cart-plus::before { content: "🛒"; }
+.bi-credit-card::before { content: "💳"; }
+.bi-play-fill::before { content: "▶"; }
+/* Плавное появление страниц */
+main {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Плавная анимация карточек */
+.course-card {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Плавные переходы кнопок */
+.btn-green, .btn-filter, .btn-level {
+    transition: all 0.25s ease;
+}
+
+.btn-green:active {
+    transform: scale(0.97);
+}
+/* ТЁМНАЯ ТЕМА */
+body.dark {
+    background: #121212;
+    color: #fff;
+}
+body.dark .navbar { background: #1e1e1e !important; border-color: #333; }
+body.dark .course-card,
+body.dark .profile-card,
+body.dark .lesson-card,
+body.dark .cart-card,
+body.dark .quiz-card,
+body.dark .my-course-card,
+body.dark .total-block,
+body.dark .checkout-card,
+body.dark .fake-payment,
+body.dark .lesson-content { background: #1e1e1e; color: #fff; }
+body.dark .text-muted { color: #aaa !important; }
+body.dark .auth-fields { background: #1e1e1e; border-color: #333; }
+body.dark .auth-input { background: #1e1e1e; color: #fff; }
+body.dark .mobile-nav { background: #1e1e1e; border-color: #333; }
+body.dark .badge-level { background: #333; color: #ccc; }
+body.dark .search-bar .input-group { background: #1e1e1e; border-color: #333; }
+body.dark .search-bar .form-control { background: #1e1e1e; color: #fff; }
+body.dark .comment-input { background: #1e1e1e; color: #fff; border-color: #333; }
+body.dark .comment-card { background: #1e1e1e; }
+
+/* ПРОФИЛЬ */
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+.profile-stat {
+    font-size: 0.85rem;
+    color: #555;
+}
+.profile-card {
+    background: white;
+    border-radius: 16px;
+    padding: 4px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+.activity-cell {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: #e0e0e0;
+}
+.activity-cell.active { background: #4CAF50; }
+.achievement {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    filter: grayscale(1);
+    opacity: 0.4;
+}
+.achievement.active {
+    filter: none;
+    opacity: 1;
+    background: #e8f5e9;
+}
+.btn-logout {
+    background: #fff;
+    border: 2px solid #ff4444;
+    color: #ff4444;
+    border-radius: 12px;
+    padding: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.btn-logout:hover { background: #ff4444; color: white; }
+
+/* Тёмная тема для профиля */
+body.dark .profile-card { background: #1e1e1e; }
+body.dark .activity-cell { background: #333; }
+body.dark .achievement { background: #333; }
+body.dark .profile-stat { color: #aaa; }

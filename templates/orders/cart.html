@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Корзина — PyLearn{% endblock %}
+
+{% block content %}
+<div class="page-header mb-4">
+    <h4 class="fw-bold"><i class="bi bi-cart"></i> Корзина</h4>
+</div>
+
+{% if orders %}
+    {% for order in orders %}
+    <div class="cart-card mb-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="course-thumb">
+                {% if order.course.image_url %}
+                    <img src="{{ order.course.image_url }}" class="course-thumb-img">
+                {% else %}
+                    <div class="course-thumb-placeholder">
+                        {% if order.course.language == 'python' %}🐍{% else %}⚡{% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="flex-grow-1">
+                <div class="fw-bold">{{ order.course.title|truncatechars:40 }}</div>
+                <div class="text-muted small">{{ order.course.get_level_display }}</div>
+                <div class="text-primary fw-bold mt-1">
+                    {% if order.course.price == 0 %}Бесплатно{% else %}{{ order.course.price }} сом{% endif %}
+                </div>
+            </div>
+            <a href="{% url 'remove_from_cart' order.pk %}" class="btn-remove">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="total-block mt-4">
+        <div class="d-flex justify-content-between mb-3">
+            <span class="text-muted">Итого:</span>
+            <span class="fs-5 fw-bold text-primary">{{ total }} сом</span>
+        </div>
+        <a href="{% url 'checkout' %}" class="btn-green w-100">
+            <i class="bi bi-credit-card"></i> Оплатить
+        </a>
+    </div>
+
+{% else %}
+    <div class="empty-state text-center py-5">
+        <div style="font-size:3rem;">🛒</div>
+        <h5 class="mt-3">Корзина пуста</h5>
+        <p class="text-muted">Добавь курсы из каталога</p>
+        <a href="{% url 'catalog' %}" class="btn-green mt-2">В каталог</a>
+    </div>
+{% endif %}
+{% endblock %}

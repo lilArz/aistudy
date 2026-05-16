@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ lesson.title }} — PyLearn{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'course_detail' lesson.course.pk %}" class="btn-back">
+        <i class="bi bi-arrow-left"></i> {{ lesson.course.title }}
+    </a>
+</div>
+
+<div class="lesson-progress-bar mb-4">
+    <div class="progress" style="height:4px;">
+        <div class="progress-bar bg-success" style="width: {% if progress.completed %}100{% else %}0{% endif %}%"></div>
+    </div>
+</div>
+
+<h4 class="fw-bold mb-4">{{ lesson.title }}</h4>
+
+{% if lesson.youtube_url %}
+<div class="video-container mb-4">
+    <iframe src="{{ lesson.youtube_url }}" frameborder="0" allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+</div>
+{% endif %}
+
+<div class="lesson-content mb-4">
+    {{ lesson.content|linebreaks }}
+</div>
+
+{% if lesson.quiz_question %}
+<div class="quiz-card mb-4">
+    <div class="quiz-header">
+        <i class="bi bi-patch-question-fill"></i> Тест
+    </div>
+    <p class="quiz-question">{{ lesson.quiz_question }}</p>
+    {% if progress.completed %}
+        <div class="quiz-success">
+            <i class="bi bi-check-circle-fill"></i> Верно! Урок пройден
+        </div>
+    {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="quiz">
+            <input type="text" name="answer" class="quiz-input" placeholder="Твой ответ...">
+            <button type="submit" class="btn-green mt-3 w-100">Проверить ответ</button>
+        </form>
+    {% endif %}
+</div>
+{% else %}
+    {% if not progress.completed %}
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="quiz">
+        <input type="hidden" name="answer" value="">
+        <button type="submit" class="btn-green w-100">
+            <i class="bi bi-check-circle"></i> Отметить как пройденный
+        </button>
+    </form>
+    {% else %}
+        <div class="quiz-success mb-4">
+            <i class="bi bi-check-circle-fill"></i> Урок пройден!
+        </div>
+    {% endif %}
+{% endif %}
+
+<div class="likes-section mb-4">
+    <form method="POST" class="d-inline">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="like">
+        <button type="submit" class="btn-like {% if liked %}liked{% endif %}">
+            <i class="bi bi-heart{% if liked %}-fill{% endif %}"></i>
+            {{ likes_count }}
+        </button>
+    </form>
+</div>
+
+<div class="comments-section">
+    <h5 class="fw-bold mb-3">
+        <i class="bi bi-chat"></i> Комментарии ({{ comments.count }})
+    </h5>
+
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="comment">
+        <div class="comment-input-wrap">
+            <textarea name="text" class="comment-input" placeholder="Напиши комментарий..." rows="2"></textarea>
+            <button type="submit" class="btn-green mt-2 w-100">Отправить</button>
+        </div>
+    </form>
+
+    {% for comment in comments %}
+    <div class="comment-card mb-2">
+        <div class="d-flex gap-3">
+            <div class="comment-avatar">{{ comment.user.username|first|upper }}</div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold">{{ comment.user.username }}</span>
+                    <span class="text-muted small">{{ comment.created_at|timesince }} назад</span>
+                </div>
+                <p class="mb-0 mt-1">{{ comment.text }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted text-center">Пока нет комментариев. Будь первым!</p>
+    {% endfor %}
+</div>
+{% endblock %}
